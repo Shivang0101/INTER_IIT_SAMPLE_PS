@@ -1,0 +1,7 @@
+pathway
+langchain
+langchain-community
+langchain-google-genai
+python-dotenv
+requests
+langgraph-checkpoint-sqlite
