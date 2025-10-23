@@ -132,7 +132,6 @@ def chat_node(state:ChatbotState):
     Know the user details below:
     {json.dumps(user_details,indent=2)if user_details else "no details available."}
     Use these details to provide personalized assistance.Answer financial Queries Professionally.
-    Be short and to the point,no hallucinations
 
     """
     Combined_Prompt=[SystemMessage(content=prompt)]+messages
@@ -158,7 +157,7 @@ CONFIG = {'configurable': {'thread_id': 'terminal_chat_thread'}}
 #Loading previous conversation state if exists
 state=Chatbot.get_state(config=CONFIG)
 
-print("ChatBot is Ready! Type ['quit','exit','bye'] to exit.\n")
+print("ChatBot is Ready! \nType ['quit','exit','bye'] to exit.\nType ['details'] to see your stored details.")
 
 #Main Conversation Loop
 while True:
@@ -166,6 +165,18 @@ while True:
     if user_input.lower() in ['quit','exit','bye']:
         print("Exiting chat !! ")
         break
+
+    if user_input.lower()=='details':
+        details=load_user_details()
+        if details:
+            print("\n Your Stored Details ")
+            for key,value in details.items():
+                print(f"    {key} : {value}")
+            print()
+        else:
+            print("No details Stored Yet.\n")
+        continue
+
 #Skip Empty Inputs
     if not user_input:
         continue
